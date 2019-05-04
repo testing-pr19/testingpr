@@ -1,0 +1,72 @@
+.row
+  .col-md-12.text-center.bg-dark.text-white.p10.p-3
+    %h4 Class Scheduling
+  .col-md-12.pt-5.text-center
+    %a.btn.btn-info.p-3.w-25{href: new_invigilator_path}
+      Add Invigilator
+    %a.btn.btn-info.p-3.w-25{href: new_class_name_path}
+      Add Class
+    %a.btn.btn-info.p-3.w-25{href: new_slot_path}
+      Add Slots
+.row
+  .col-md-5.mt-5.border.pr-0.ml-auto.pl-0
+    %h3.text-center.pt-4.pb-2 Day Details
+    %table.table.table-striped.mb-0
+      %thead
+        %tr
+          %th{:scope => "col"} Date
+          %th{:scope => "col"} Day
+      %tbody
+        - Slot::ScheduleDays.each do |key,value|
+          %tr
+            %td= key
+            %td= value
+        
+
+  .col-md-5.mt-5.border.pr-0.pl-0.ml-5.mr-auto
+    %h3.text-center.pt-4.pb-2 Slot Details
+    %table.table.table-striped.mb-0
+      %thead
+        %tr
+          %th{:scope => "col"} From 
+          %th{:scope => "col"} To
+          %th{:scope => "col"} Actions
+
+      %tbody
+        - Slot.all.each do |slot|
+          %tr
+            %td= "#{slot.from} #{slot.from_am_pm}"
+            %td= "#{slot.to} #{slot.to_am_pm}"
+            %td= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }
+
+
+.row
+  .col-md-5.mt-5.border.pr-0.ml-auto.pl-0
+    %h3.text-center.pt-4.pb-2 Class Details
+    %table.table.table-striped.mb-0
+      %thead
+        %tr
+          %th{:scope => "col"} Class Name
+          %th{:scope => "col"} Actions
+      %tbody
+        - ClassName.all.each do |class_name|
+          %tr
+            %td= class_name.name
+            %td
+              = link_to 'Destroy', class_name, method: :delete, data: { confirm: 'Are you sure?' }
+
+  .col-md-5.mt-5.border.pr-0.pl-0.ml-5.mr-auto
+    %h3.text-center.pt-4.pb-2 Invigilator Details
+    %table.table.table-striped.mb-0
+      %thead
+        %tr
+          %th{:scope => "col"} Name 
+          %th{:scope => "col"} Type
+          %th{:scope => "col"} Actions
+      %tbody
+        - Invigilator.all.each do |inv|
+          %tr
+            %td= inv.name
+            %td= inv.invigilator_type.try(:titleize)
+            %td
+              = link_to 'Destroy', inv, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,0 +1,2 @@
+class Invigilator < ApplicationRecord
+end

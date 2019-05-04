@@ -1,0 +1,27 @@
+<%= form_with(model: invigilator, local: true) do |form| %>
+  <% if invigilator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invigilator.errors.count, "error") %> prohibited this invigilator from being saved:</h2>
+
+      <ul>
+      <% invigilator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-md-12">
+    <label>Name</label>
+    <%= form.text_field :name, class: "form-control", required: "true" %>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label>Type</label>
+    <%= form.select :invigilator_type, ([["Lab Engineer", "lab_engineer"], ["Associate", "associate"], ["Lecturer", "lecturer"], ["Assistant", "assistant"]]), {}, :class => "form-control", required: "true" %>
+  </div>
+
+  <div class="actions col-md-12">
+    <input type="submit" name="commit" value="Save Record" data-disable-with="Save Record" class="btn btn-info">
+  </div>
+<% end %>

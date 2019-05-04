@@ -28,7 +28,7 @@ class ClassNamesController < ApplicationController
 
     respond_to do |format|
       if @class_name.save
-        format.html { redirect_to @class_name, notice: 'Class name was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Class name was successfully created.' }
         format.json { render :show, status: :created, location: @class_name }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class ClassNamesController < ApplicationController
   def destroy
     @class_name.destroy
     respond_to do |format|
-      format.html { redirect_to class_names_url, notice: 'Class name was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Class name was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
