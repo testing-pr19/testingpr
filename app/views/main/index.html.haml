@@ -33,11 +33,16 @@
           %th{:scope => "col"} Actions
 
       %tbody
-        - Slot.all.each do |slot|
+        -if Slot.all.present?
+          - Slot.all.each do |slot|
+            %tr
+              %td= "#{slot.from} #{slot.from_am_pm}"
+              %td= "#{slot.to} #{slot.to_am_pm}"
+              %td= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }
+        -else
           %tr
-            %td= "#{slot.from} #{slot.from_am_pm}"
-            %td= "#{slot.to} #{slot.to_am_pm}"
-            %td= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }
+            %td.text-center{colspan: 3}= "No slot added"
+          
 
 
 .row
@@ -49,12 +54,15 @@
           %th{:scope => "col"} Class Name
           %th{:scope => "col"} Actions
       %tbody
-        - ClassName.all.each do |class_name|
+        - if ClassName.all.present? 
+          - ClassName.all.each do |class_name|
+            %tr
+              %td= class_name.name
+              %td
+                = link_to 'Destroy', class_name, method: :delete, data: { confirm: 'Are you sure?' }
+        -else
           %tr
-            %td= class_name.name
-            %td
-              = link_to 'Destroy', class_name, method: :delete, data: { confirm: 'Are you sure?' }
-
+            %td.text-center{colspan: 2}= "No class added"
   .col-md-5.mt-5.border.pr-0.pl-0.ml-5.mr-auto
     %h3.text-center.pt-4.pb-2 Invigilator Details
     %table.table.table-striped.mb-0
@@ -64,9 +72,13 @@
           %th{:scope => "col"} Type
           %th{:scope => "col"} Actions
       %tbody
-        - Invigilator.all.each do |inv|
+        - if Invigilator.all.present?
+          - Invigilator.all.each do |inv|
+            %tr
+              %td= inv.name
+              %td= inv.invigilator_type.try(:titleize)
+              %td
+                = link_to 'Destroy', inv, method: :delete, data: { confirm: 'Are you sure?' }
+        -else
           %tr
-            %td= inv.name
-            %td= inv.invigilator_type.try(:titleize)
-            %td
-              = link_to 'Destroy', inv, method: :delete, data: { confirm: 'Are you sure?' }
+            %td.text-center{colspan: 3}= "No invigilator added"
