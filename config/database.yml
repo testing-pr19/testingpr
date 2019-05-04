@@ -25,5 +25,8 @@ test:
   database: testing_schedule1
 
 production:
-  <<: *default
+  adapter: postgresql
+  pool: 10
+  user: sqjboyammqvrec
+  password: cdcae3f207fb550a46465a23c037682f2442b63634b8e5a85831e476675dfbbc
   database: production_schedules
