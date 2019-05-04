@@ -1,4 +1,6 @@
-<h1>Class Namess</h1>
+<p id="notice"><%= notice %></p>
+
+<h1>Class Names</h1>
 
 <table>
   <thead>
@@ -9,16 +11,9 @@
   </thead>
 
   <tbody>
-    <% @class_names.each do |class_name| %>
-      <tr>
-        <td><%= class_name.name %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>
 
 <br>
 
+<%= link_to 'New Class Name', new_class_name_path %>
