@@ -26,4 +26,4 @@ test:
 
 production:
   <<: *default
-  database: production_schedule
+  database: production_schedules
