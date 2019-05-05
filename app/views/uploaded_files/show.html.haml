@@ -13,7 +13,7 @@
           %th{:scope => "col"} Invigilator 
       %tbody
         - if @uploaded_file.file_records.present? 
-          -  @uploaded_file.file_records.order("timing").each do |class_name|
+          -  @uploaded_file.file_records.order("invigilator_id").each do |class_name|
             %tr
               %td= class_name.timing
               %td= class_name.slot

@@ -90,26 +90,62 @@ class UploadedFilesController < ApplicationController
       lecturer = [0]
       assistant = [0]
       values.each do |value|
-        lab_engineer_count = Invigilator.all.where(invigilator_type: "lab_engineer").where.not("id IN (?)", lab_engineer)
-        associate_count = Invigilator.all.where(invigilator_type: "associate").where.not("id IN (?)", associate)
-        lecturer_count = Invigilator.all.where(invigilator_type: "lecturer").where.not("id IN (?)", lecturer)
-        assistant_count = Invigilator.all.where(invigilator_type: "assistant").where.not("id IN (?)", assistant)
-        if lab_engineer_count.count > 0
-          lab_engineer_count_first = lab_engineer_count.first.id
-          value.update_column(:invigilator_id, lab_engineer_count_first)  
-          lab_engineer << lab_engineer_count_first
-        elsif associate_count.count > 0
-          associate_count_first = associate_count.first.id
-          value.update_column(:invigilator_id, associate_count_first)  
-          associate << associate_count_first
-        elsif lecturer_count.count > 0
-          lecturer_count_first = lecturer_count.first.id
-          value.update_column(:invigilator_id, lecturer_count_first)  
-          lecturer << lecturer_count_first
-        elsif assistant_count.count > 0
-          assistant_count_first = assistant_count.first.id
-          value.update_column(:invigilator_id, assistant_count_first)  
-          assistant << assistant_count_first
+        done = 0
+        @uploaded_file.file_records.where
+        lab_engineer_records = Invigilator.all.where(invigilator_type: "lab_engineer").where.not("id IN (?)", lab_engineer)
+        associate_records = Invigilator.all.where(invigilator_type: "associate").where.not("id IN (?)", associate)
+        lecturer_records = Invigilator.all.where(invigilator_type: "lecturer").where.not("id IN (?)", lecturer)
+        assistant_records = Invigilator.all.where(invigilator_type: "assistant").where.not("id IN (?)", assistant)
+
+
+
+        if lab_engineer_records.count > 0 && done == 0
+          
+          eng_done = 0
+          lab_engineer_records.each do |eng|
+            if @uploaded_file.file_records.where(invigilator_id: eng.id).count < 7 && eng_done == 0
+              value.update_column(:invigilator_id, eng.id)  
+              lab_engineer << eng.id
+              eng_done = 1
+              done = 1
+            end
+          end
+        end
+
+        if associate_records.count > 0 && done == 0
+          associate_done = 0
+          associate_records.each do |aso|
+            if @uploaded_file.file_records.where(invigilator_id: aso.id).count < 5 && associate_done == 0
+              value.update_column(:invigilator_id, aso.id)  
+              associate << aso.id
+              associate_done = 1
+              done = 1
+            end
+          end
+        end
+
+        if lecturer_records.count > 0 && done == 0
+          lecturer_done = 0
+          lecturer_records.each do |lec|
+            if @uploaded_file.file_records.where(invigilator_id: lec.id).count < 4 && lecturer_done == 0
+              value.update_column(:invigilator_id, lec.id)  
+              lecturer << lec.id
+              lecturer_done = 1
+              done = 1
+            end
+          end
+        end
+
+        if assistant_records.count > 0 && done == 0
+          assistant_done = 0
+          assistant_records.each do |asi|
+            if @uploaded_file.file_records.where(invigilator_id: asi.id).count < 3 && assistant_done == 0
+              value.update_column(:invigilator_id, asi.id)  
+              assistant << asi.id
+              assistant_done = 1
+              done = 1
+            end
+          end
         end
       end
 
