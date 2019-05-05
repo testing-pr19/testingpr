@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :uploaded_files do
     member do
       get :schedule_slots
+      get :export_schedule
     end
   end
   resources :invigilators

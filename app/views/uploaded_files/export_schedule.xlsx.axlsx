@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  project_heading = style.add_style(b: true, sz: 14)
+  heading = style.add_style(b: true)
+  wb.add_worksheet(name: "Classes") do |sheet|
+    # Create the header row
+    sheet.add_row ["Day", "Time", "Class Room", Invigilator], style: project_heading
+    @uploaded_file.file_records.each do |item|
+      sheet.add_row [item.timing, item.slot, item.class_name, item.invigilator.try(:name)]
+    end
+  end
+end

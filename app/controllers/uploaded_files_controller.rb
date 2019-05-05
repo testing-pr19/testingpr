@@ -1,5 +1,5 @@
 class UploadedFilesController < ApplicationController
-  before_action :set_uploaded_file, only: [:show, :edit, :update, :destroy, :schedule_slots]
+  before_action :set_uploaded_file, only: [:show, :edit, :update, :destroy, :schedule_slots, :export_schedule]
 
   # GET /uploaded_files
   # GET /uploaded_files.json
@@ -152,6 +152,15 @@ class UploadedFilesController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to uploaded_file_path(@uploaded_file), notice: 'Uploaded file was successfully updated.' }
+    end
+  end
+
+  def export_schedule
+    respond_to do |format|
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="schedule_slots.xlsx"'
+      }
+      format.html { redirect_to :root_path }
     end
   end
 

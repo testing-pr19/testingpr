@@ -1,7 +1,10 @@
 .row.mb-5
   .col-md-12.text-center.bg-dark.text-white.p10.p-3
     %h4 Uploaded Record
-
+.row
+  .col-md-12.pt-5.text-center
+    %a.btn.btn-info.p-3.w-25{href: export_schedule_uploaded_file_path(@uploaded_file, format: "xlsx")}
+      Download
 .row
   .col-md-12.mt-5.pl-5.pr-5.pr-0.ml-auto.pl-0
     %table.table.table-striped.mb-0
