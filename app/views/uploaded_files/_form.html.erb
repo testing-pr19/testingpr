@@ -1,0 +1,24 @@
+<%= form_with(model: uploaded_file, local: true) do |form| %>
+  <% if uploaded_file.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(uploaded_file.errors.count, "error") %> prohibited this uploaded_file from being saved:</h2>
+
+      <ul>
+      <% uploaded_file.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="form-group col-md-5 d-inline-block">
+    <%= form.file_field :file_name, class: "", required: "true"%>
+  </div>
+  
+  <div class="actions col-md-12">
+    <input type="submit" name="commit" value="Import Records" data-disable-with="Import Records" class="btn btn-info">
+  </div>
+
+
+<% end %>

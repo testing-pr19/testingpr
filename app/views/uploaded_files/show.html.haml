@@ -1,0 +1,24 @@
+.row.mb-5
+  .col-md-12.text-center.bg-dark.text-white.p10.p-3
+    %h4 Uploaded Record
+
+.row
+  .col-md-12.mt-5.pl-5.pr-5.pr-0.ml-auto.pl-0
+    %table.table.table-striped.mb-0
+      %thead
+        %tr
+          %th{:scope => "col"} Day 
+          %th{:scope => "col"} Time  
+          %th{:scope => "col"} Class Room
+          %th{:scope => "col"} Invigilator 
+      %tbody
+        - if @uploaded_file.file_records.present? 
+          -  @uploaded_file.file_records.order("timing").each do |class_name|
+            %tr
+              %td= class_name.timing
+              %td= class_name.slot
+              %td= class_name.class_name
+              %td= class_name.invigilator.try(:name)
+        -else
+          %tr
+            %td.text-center{colspan: 4}= "No record added"

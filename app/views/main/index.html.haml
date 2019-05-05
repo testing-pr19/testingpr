@@ -4,65 +4,31 @@
   .col-md-12.pt-5.text-center
     %a.btn.btn-info.p-3.w-25{href: new_invigilator_path}
       Add Invigilator
-    %a.btn.btn-info.p-3.w-25{href: new_class_name_path}
-      Add Class
-    %a.btn.btn-info.p-3.w-25{href: new_slot_path}
-      Add Slots
-.row
-  .col-md-5.mt-5.border.pr-0.ml-auto.pl-0
-    %h3.text-center.pt-4.pb-2 Day Details
-    %table.table.table-striped.mb-0
-      %thead
-        %tr
-          %th{:scope => "col"} Date
-          %th{:scope => "col"} Day
-      %tbody
-        - Slot::ScheduleDays.each do |key,value|
-          %tr
-            %td= key
-            %td= value
-        
-
-  .col-md-5.mt-5.border.pr-0.pl-0.ml-5.mr-auto
-    %h3.text-center.pt-4.pb-2 Slot Details
-    %table.table.table-striped.mb-0
-      %thead
-        %tr
-          %th{:scope => "col"} From 
-          %th{:scope => "col"} To
-          %th{:scope => "col"} Actions
-
-      %tbody
-        -if Slot.all.present?
-          - Slot.all.each do |slot|
-            %tr
-              %td= "#{slot.from} #{slot.from_am_pm}"
-              %td= "#{slot.to} #{slot.to_am_pm}"
-              %td= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }
-        -else
-          %tr
-            %td.text-center{colspan: 3}= "No slot added"
-          
-
+    %a.btn.btn-info.p-3.w-25{href: new_uploaded_file_path}
+      Add Files
 
 .row
   .col-md-5.mt-5.border.pr-0.ml-auto.pl-0
-    %h3.text-center.pt-4.pb-2 Class Details
+    %h3.text-center.pt-4.pb-2 Uploaded files
     %table.table.table-striped.mb-0
       %thead
         %tr
-          %th{:scope => "col"} Class Name
+          %th{:scope => "col"} File Name
+          %th{:scope => "col"} Created At
           %th{:scope => "col"} Actions
       %tbody
-        - if ClassName.all.present? 
-          - ClassName.all.each do |class_name|
+        - if UploadedFile.all.present? 
+          - UploadedFile.all.each do |uploaded_file|
             %tr
-              %td= class_name.name
+              %td= uploaded_file.file_name
+              %td= uploaded_file.created_at.strftime('%m/%d/%y %I:%M')
               %td
-                = link_to 'Destroy', class_name, method: :delete, data: { confirm: 'Are you sure?' }
+                = link_to 'View', uploaded_file
+                = link_to 'Schedule', schedule_slots_uploaded_file_path(uploaded_file)
+                = link_to 'Destroy', uploaded_file, method: :delete, data: { confirm: 'Are you sure?' }
         -else
           %tr
-            %td.text-center{colspan: 2}= "No class added"
+            %td.text-center{colspan: 3}= "No files added"
   .col-md-5.mt-5.border.pr-0.pl-0.ml-5.mr-auto
     %h3.text-center.pt-4.pb-2 Invigilator Details
     %table.table.table-striped.mb-0

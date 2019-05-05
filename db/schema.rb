@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_04_101958) do
+ActiveRecord::Schema.define(version: 2019_05_05_121420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "class_names", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "file_records", force: :cascade do |t|
+    t.string "timing"
+    t.string "class_name"
+    t.string "slot"
+    t.integer "uploaded_file_id"
+    t.integer "invigilator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,6 +43,12 @@ ActiveRecord::Schema.define(version: 2019_05_04_101958) do
     t.string "from_am_pm"
     t.string "to"
     t.string "to_am_pm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "uploaded_files", force: :cascade do |t|
+    t.string "file_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
