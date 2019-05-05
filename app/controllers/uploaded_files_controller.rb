@@ -112,13 +112,13 @@ class UploadedFilesController < ApplicationController
           end
         end
 
-        if associate_records.count > 0 && done == 0
-          associate_done = 0
-          associate_records.each do |aso|
-            if @uploaded_file.file_records.where(invigilator_id: aso.id).count < 5 && associate_done == 0
-              value.update_column(:invigilator_id, aso.id)  
-              associate << aso.id
-              associate_done = 1
+        if assistant_records.count > 0 && done == 0
+          assistant_done = 0
+          assistant_records.each do |asi|
+            if @uploaded_file.file_records.where(invigilator_id: asi.id).count < 5 && assistant_done == 0
+              value.update_column(:invigilator_id, asi.id)  
+              assistant << asi.id
+              assistant_done = 1
               done = 1
             end
           end
@@ -136,13 +136,13 @@ class UploadedFilesController < ApplicationController
           end
         end
 
-        if assistant_records.count > 0 && done == 0
-          assistant_done = 0
-          assistant_records.each do |asi|
-            if @uploaded_file.file_records.where(invigilator_id: asi.id).count < 3 && assistant_done == 0
-              value.update_column(:invigilator_id, asi.id)  
-              assistant << asi.id
-              assistant_done = 1
+        if associate_records.count > 0 && done == 0
+          associate_done = 0
+          associate_records.each do |aso|
+            if @uploaded_file.file_records.where(invigilator_id: aso.id).count < 3 && associate_done == 0
+              value.update_column(:invigilator_id, aso.id)  
+              associate << aso.id
+              associate_done = 1
               done = 1
             end
           end
