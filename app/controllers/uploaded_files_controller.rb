@@ -115,7 +115,7 @@ class UploadedFilesController < ApplicationController
         if assistant_records.count > 0 && done == 0
           assistant_done = 0
           assistant_records.each do |asi|
-            if @uploaded_file.file_records.where(invigilator_id: asi.id).count < 5 && assistant_done == 0
+            if @uploaded_file.file_records.where(invigilator_id: asi.id).count < 4 && assistant_done == 0
               value.update_column(:invigilator_id, asi.id)  
               assistant << asi.id
               assistant_done = 1
@@ -127,7 +127,7 @@ class UploadedFilesController < ApplicationController
         if lecturer_records.count > 0 && done == 0
           lecturer_done = 0
           lecturer_records.each do |lec|
-            if @uploaded_file.file_records.where(invigilator_id: lec.id).count < 4 && lecturer_done == 0
+            if @uploaded_file.file_records.where(invigilator_id: lec.id).count < 5 && lecturer_done == 0
               value.update_column(:invigilator_id, lec.id)  
               lecturer << lec.id
               lecturer_done = 1
